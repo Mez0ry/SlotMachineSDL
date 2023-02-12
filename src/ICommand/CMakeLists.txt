@@ -1,0 +1,1 @@
+add_library(ICommand SHARED  ICommand.hpp CommandManager.hpp SpinCommand.hpp)
