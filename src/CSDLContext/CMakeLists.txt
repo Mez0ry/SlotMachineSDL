@@ -1,0 +1,1 @@
+add_library(CSDLContext SHARED CSDLContext.hpp CSDLContext.cpp)
