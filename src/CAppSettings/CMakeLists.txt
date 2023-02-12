@@ -1,0 +1,1 @@
+add_library(CAppSettings SHARED CAppSettings.hpp CAppSettings.cpp)
