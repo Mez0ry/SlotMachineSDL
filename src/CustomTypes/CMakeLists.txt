@@ -1,1 +1,0 @@
-add_library(CustomTypes SHARED Percent.hpp Range.hpp RectnagleProperties.hpp)

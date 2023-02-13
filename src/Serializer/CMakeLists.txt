@@ -1,1 +1,0 @@
-add_library(Serializer SHARED Serializer.hpp)
