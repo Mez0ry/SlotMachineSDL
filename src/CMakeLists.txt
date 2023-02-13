@@ -3,7 +3,7 @@ set (EXECUTABLE_NAME SlotMachineSDL)
 add_subdirectory(CAppSettings)
 add_subdirectory(CSDLContext)
 add_subdirectory(FontManager)
-add_subdirectory(TextureManager)
+add_subdirectory(Texture)
 
 include_directories({PROJECT_SOURCE_DIR}/ICommand)
 include_directories({PROJECT_SOURCE_DIR}/Serializer)
@@ -14,7 +14,7 @@ add_executable(${EXECUTABLE_NAME} main.cpp Game.hpp Game.cpp SlotMachine.hpp Slo
 target_link_libraries(${EXECUTABLE_NAME} CAppSettings
                                          CSDLContext 
                                          FontManager 
-                                         TextureManager)
+                                         Texture)
 
 ##Vendor
 set(SDL_STATIC ON CACHE BOOL "" FORCE)
