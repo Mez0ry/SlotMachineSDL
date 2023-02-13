@@ -5,25 +5,18 @@
 #include "SDL2/SDL_image.h"
 #include <string>
 
-#include "../FontManager/FontManager.hpp" // need CursorPosition POD
 #include<iostream>
 
 #include "../CustomTypes/RectangleProperties.hpp"
+#include "../CustomTypes/Vector.hpp"
+#include <bitset>
 
-enum class ImageType { PNG, BMP };
-
-namespace TextureConstants {
-constexpr int TextureWidth = 32;
-constexpr int TextureHeight = 32;
-
-}; // !namespace TextureConstants
-
-class TextureManager {
+class Texture {
 public:
-  TextureManager();
-  ~TextureManager();
+  Texture();
+  ~Texture();
   
-  SDL_Texture* LoadTexture(const std::string& path, ImageType type = ImageType::PNG);
+  SDL_Texture* LoadTexture(const std::string& path);
   void set_Texture(SDL_Texture* texture);
   void DestroyTexture();
   void ReloadTexture();
@@ -41,7 +34,7 @@ public:
   SDL_Rect get_dstRect() const { return m_dst; }
   [[nodiscard]] SDL_Texture *get_Texture() { return m_texture; }
 
-  bool CursorIsColliding(const CursorPosition &cursor_pos);
+  bool CursorIsColliding(const Vec2 &cursor_pos);
 
   void RenderTexture();
 public:
@@ -54,7 +47,6 @@ private:
   SDL_Rect m_src, m_dst;
   SDL_Texture *m_texture;
   std::string m_TexturePath;
-  ImageType m_ImageType;
   std::bitset<1> m_Selected;
 };
 #endif //! SnakeGame_TEXTURE_MANAGER_HPP

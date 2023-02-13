@@ -4,7 +4,8 @@
 #include "ICommand/CommandManager.hpp"
 #include "ICommand/SpinCommand.hpp"
 #include "SlotSymbol.hpp"
-#include "TextureManager/TextureManager.hpp"
+#include "Texture/Texture.hpp"
+#include "CustomTypes/Vector.hpp"
 
 #include <filesystem>
 #include <algorithm>
@@ -48,9 +49,9 @@ private:
   }
 
   SDL_Event m_event;
-  TextureManager m_SlotMachineTexture;
-  TextureManager m_SlotBackground;
-  TextureManager m_Lever[2];
+  Texture m_SlotMachineTexture;
+  Texture m_SlotBackground;
+  Texture m_Lever[2];
 
   std::vector<std::shared_ptr<SlotSymbol>> m_SlotSymbolsVec;
   CommandManager m_PullLeverCommands;

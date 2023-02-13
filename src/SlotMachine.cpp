@@ -104,7 +104,7 @@ void SlotMachine::Setup() {
 
 void SlotMachine::InputHandler() {
   while (SDL_PollEvent(&m_event)) {
-    CursorPosition cursor_pos;
+    Vec2 cursor_pos;
     cursor_pos.x = m_event.motion.x;
     cursor_pos.y = m_event.motion.y;
     switch (m_event.type) {

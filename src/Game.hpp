@@ -25,6 +25,6 @@ private:
     SDL_Event m_event;
 private:
     SlotMachine m_SlotMachine;
-    TextureManager m_background;
+    Texture m_background;
 };
 #endif //!_GAME_HPP
