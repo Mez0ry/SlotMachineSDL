@@ -1,13 +1,13 @@
 #include "FontManager.hpp"
 
-FontManager::FontManager() noexcept : m_Surface(nullptr), m_Texture(nullptr), m_font(nullptr)
+FontManager::FontManager() noexcept : m_Texture(nullptr), m_font(nullptr)
 {
-  m_SreenSurface = CSDLContext::instance().get_WindowSurface();
+  
 }
 
 FontManager::~FontManager() noexcept
 {
-  DestroySurfaceAndTexture();
+  DestroyTexture();
   if (m_font != nullptr)
   {
     TTF_CloseFont(m_font);
@@ -25,14 +25,8 @@ void FontManager::LoadFont(const char *path, int font_size)
   }
 }
 
-void FontManager::DestroySurfaceAndTexture()
+void FontManager::DestroyTexture()
 {
-  if (m_Surface != nullptr)
-  {
-    SDL_FreeSurface(m_Surface);
-    m_Surface = nullptr;
-  }
-
   if (m_Texture != nullptr)
   {
     SDL_DestroyTexture(m_Texture);
@@ -40,26 +34,26 @@ void FontManager::DestroySurfaceAndTexture()
   }
 }
 
-void FontManager::LoadSurfaceAndTexture(const char *text, const SDL_Color &color)
+void FontManager::LoadTexture(const char *text, const SDL_Color &color)
 {
-  if (m_Surface || m_Texture)
+  if (m_Texture)
     return;
 
-  m_Surface = TTF_RenderText_Solid(m_font, text, color);
-  if (m_Surface == NULL)
+  SDL_Surface *surface = TTF_RenderText_Solid(m_font, text, color);
+  if (surface == NULL)
   {
     std::cout << "Can't get surface from font, Error: " << TTF_GetError() << '\n';
   }
+  m_Texture = SDL_CreateTextureFromSurface(CSDLContext::instance().get_renderer(), surface);
 
-  m_Texture = SDL_CreateTextureFromSurface(CSDLContext::instance().get_renderer(), m_Surface);
-
+  SDL_FreeSurface(surface);
   if (m_Texture == NULL)
   {
     std::cout << "Can't get font texture from surface , Error: " << TTF_GetError() << '\n';
   }
 }
 
-bool FontManager::CursorIsColliding(const CursorPosition &cursor_pos)
+bool FontManager::CursorIsColliding(const Vec2 &cursor_pos)
 {
   return (cursor_pos.x >= m_dst.x && cursor_pos.x <= m_dst.x + m_dst.w && cursor_pos.y >= m_dst.y && cursor_pos.y <= m_dst.y + m_dst.h);
 }

@@ -1,24 +1,17 @@
 #ifndef SnakeGame_FONT_MANAGER_HPP
 #define SnakeGame_FONT_MANAGER_HPP
 #include "../CSDLContext/CSDLContext.hpp"
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_ttf.h"
+
 #include <bitset>
 #include <string_view>
 #include <iostream>
-
-typedef struct
-{
-  int x, y;
-} CursorPosition;
+#include "../CustomTypes/Vector.hpp"
 
 class FontManager
 {
 private:
   std::string_view m_FontPath;
   std::string_view m_Text;
-  SDL_Surface *m_SreenSurface;
-
 public:
   FontManager() noexcept;
   ~FontManager() noexcept;
@@ -32,23 +25,21 @@ public:
   void set_dstRect(int x, int y, int width, int height);
   void set_dstWidthAndHeight(int width, int height);
 
-  void DestroySurfaceAndTexture();
-  void LoadSurfaceAndTexture(const char *text, const SDL_Color &color);
+  void DestroyTexture();
+  void LoadTexture(const char *text, const SDL_Color &color);
 
-  [[nodiscard]] SDL_Surface *get_Surface() const { return m_Surface; }
   [[nodiscard]] SDL_Texture *get_Texture() const { return m_Texture; }
 
   void RenderCopy();
 
   void RenderTextOnTopOfAnother(SDL_Texture* back_texture,SDL_Rect& back_src,SDL_Rect& back_dst);
-
-  bool CursorIsColliding(const CursorPosition &cursor_pos);
+  
+  bool CursorIsColliding(const Vec2 &cursor_pos);
   bool isSelected() const { return m_Selected[0]; }
   void set_SelectStatus(bool state) { this->m_Selected[0] = state; }
 
 private:
   TTF_Font *m_font;
-  SDL_Surface *m_Surface;
   SDL_Texture *m_Texture;
   SDL_Rect m_dst;
   SDL_Color m_Color;
